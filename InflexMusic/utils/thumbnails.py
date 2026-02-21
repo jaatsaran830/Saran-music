@@ -2,7 +2,7 @@ import os
 import re
 import aiohttp
 import aiofiles
-from NOBITA_MUSIC import app
+from InflexMusic import app
 from config import YOUTUBE_IMG_URL
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
 from py_yt import VideosSearch
