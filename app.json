@@ -41,7 +41,7 @@
       "value": "",
       "required": true
     },
-      "SUPPORT_CHAT": {
+      "SUPPORT_GROUP": {
       "description": "Add Chat group & support group Link",
       "value": "",
       "required": true
@@ -80,4 +80,5 @@
     ],
     "stack": "container"
 }
+
 
