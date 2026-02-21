@@ -1,38 +1,25 @@
+from time import time
+
 from pyrogram import filters
 from pyrogram.enums import ChatType
 from pyrogram.errors import MessageNotModified
-from pyrogram.types import (
-    CallbackQuery,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-)
+from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
+                            InlineKeyboardMarkup, Message)
 
+import config
 from InflexMusic import app
-from InflexMusic.utils.database import (
-    add_nonadmin_chat,
-    get_authuser,
-    get_authuser_names,
-    get_playmode,
-    get_playtype,
-    get_upvote_count,
-    is_nonadmin_chat,
-    is_skipmode,
-    remove_nonadmin_chat,
-    set_playmode,
-    set_playtype,
-    set_upvotes,
-    skip_off,
-    skip_on,
-)
+from InflexMusic.utils.database import (add_nonadmin_chat, get_authuser,
+                                       get_authuser_names, get_playmode,
+                                       get_playtype, get_upvote_count,
+                                       is_nonadmin_chat, is_skipmode,
+                                       remove_nonadmin_chat, set_playmode,
+                                       set_playtype, set_upvotes, skip_off,
+                                       skip_on)
 from InflexMusic.utils.decorators.admins import ActualAdminCB
 from InflexMusic.utils.decorators.language import language, languageCB
-from InflexMusic.utils.inline.settings import (
-    auth_users_markup,
-    playmode_users_markup,
-    setting_markup,
-    vote_mode_markup,
-)
+from InflexMusic.utils.inline.settings import (auth_users_markup,
+                                              playmode_users_markup,
+                                              setting_markup, vote_mode_markup)
 from InflexMusic.utils.inline.start import private_panel
 from config import BANNED_USERS, OWNER_ID
 
@@ -67,6 +54,50 @@ async def settings_cb(client, CallbackQuery, _):
     )
 
 
+@app.on_callback_query(filters.regex("^bot_info_data$"))
+async def show_bot_info(c: app, q: CallbackQuery):
+    start = time()
+    x = await c.send_message(q.message.chat.id, "ᴘɪɴɢ ᴘᴏɴɢ 💕..")
+    delta_ping = time() - start
+    await x.delete()
+    txt = f"""💌 ᴘɪɴɢ ᴘᴏɴɢ ʙᴀʙʏ...
+
+• ᴅᴀᴛᴀʙᴀsᴇ: ᴏɴʟɪɴᴇ
+• ʏᴏᴜᴛᴜʙᴇ ᴀᴘɪ: ʀᴇsᴘᴏɴsɪᴠᴇ
+• ʙᴏᴛ sᴇʀᴠᴇʀ: ʀᴜɴɴɪɴɢ sᴍᴏᴏᴛʜʟʏ
+• ʀᴇsᴘᴏɴsᴇ ᴛɪᴍᴇ: ᴏᴘᴛɪᴍᴀʟ
+• ᴀᴘɪ ᴘɪɴɢ: {delta_ping * 1000:.3f} ms   
+
+• ᴇᴠᴇʀʏᴛʜɪɴɢ ʟᴏᴏᴋs ɢᴏᴏᴅ!
+"""
+    await q.answer(txt, show_alert=True)
+    return
+
+
+@app.on_callback_query(filters.regex("shiv_aarumi") & ~BANNED_USERS)
+@languageCB
+async def support(client, CallbackQuery, _):
+    await CallbackQuery.edit_message_text(
+        text="ʜᴇʀᴇ ᴀʀᴇ ꜱᴏᴍᴇ ɪᴍᴘᴏʀᴛᴀɴᴛ ʟɪɴᴋꜱ.",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(text="ᴅᴇᴠs", user_id=config.OWNER_ID),
+                ],
+                [
+                    InlineKeyboardButton(text="sᴜᴘᴘᴏʀᴛ", url=config.SUPPORT_GROUP),
+                    InlineKeyboardButton(text="ᴄʜᴀɴɴᴇʟ", url=config.SUPPORT_CHANNEL),
+                ],
+                [
+                    InlineKeyboardButton(
+                        text="ʙᴀᴄᴋ", callback_data="settingsback_helper"
+                    )
+                ],
+            ]
+        ),
+    )
+
+
 @app.on_callback_query(filters.regex("settingsback_helper") & ~BANNED_USERS)
 @languageCB
 async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
@@ -76,7 +107,6 @@ async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
         pass
     if CallbackQuery.message.chat.type == ChatType.PRIVATE:
         await app.resolve_peer(OWNER_ID)
-        OWNER = OWNER_ID
         buttons = private_panel(_)
         return await CallbackQuery.edit_message_text(
             _["start_2"].format(CallbackQuery.from_user.mention, app.mention),
@@ -332,12 +362,10 @@ async def authusers_mar(client, CallbackQuery, _):
             upl = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(
-                            text=_["BACK_BUTTON"], callback_data=f"AU"
-                        ),
+                        InlineKeyboardButton(text=_["BACK_BUTTON"], callback_data="AU"),
                         InlineKeyboardButton(
                             text=_["CLOSE_BUTTON"],
-                            callback_data=f"close",
+                            callback_data="close",
                         ),
                     ]
                 ]
@@ -369,7 +397,7 @@ async def authusers_mar(client, CallbackQuery, _):
 @app.on_callback_query(filters.regex("VOMODECHANGE") & ~BANNED_USERS)
 @ActualAdminCB
 async def vote_change(client, CallbackQuery, _):
-    command = CallbackQuery.matches[0].group(1)
+    CallbackQuery.matches[0].group(1)
     try:
         await CallbackQuery.answer(_["set_cb_3"], show_alert=True)
     except:
