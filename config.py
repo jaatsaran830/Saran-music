@@ -26,7 +26,7 @@ DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
 SONG_DOWNLOAD_DURATION_LIMIT = int(time_to_seconds(f"{SONG_DOWNLOAD_DURATION}:00"))
 
 # ✅ Owner & Bot Identity
-LOGGER_ID = int(getenv("LOGGER_ID", "-1002739133823"))
+LOGGER_ID = int(getenv("LOGGER_ID", ""))
 OWNER_ID = int(getenv("OWNER_ID", "123456789"))
 BOT_USERNAME = getenv("BOT_USERNAME", "")
 
@@ -104,4 +104,5 @@ if SUPPORT_CHANNEL and not re.match(r"(?:http|https)://", SUPPORT_CHANNEL):
 
 if SUPPORT_CHAT and not re.match(r"(?:http|https)://", SUPPORT_CHAT):
     raise SystemExit("[ERROR] - Your SUPPORT_CHAT URL is invalid. Must start with https://")
+
 
