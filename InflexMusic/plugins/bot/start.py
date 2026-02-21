@@ -39,7 +39,7 @@ async def start_pm(client, message: Message, _):
             return await message.reply_photo(
                 photo=config.START_IMG_URL,
                 has_spoiler=True,
-                caption=_["help_1"].format(config.SUPPORT_CHAT),
+                caption=_["help_1"].format(config.SUPPORT_GROUP),
                 reply_markup=keyboard,
             )
         if name[0:3] == "sud":
@@ -71,7 +71,7 @@ async def start_pm(client, message: Message, _):
                 [
                     [
                         InlineKeyboardButton(text=_["S_B_8"], url=link),
-                        InlineKeyboardButton(text=_["S_B_9"], url=config.SUPPORT_CHAT),
+                        InlineKeyboardButton(text=_["S_B_9"], url=config.SUPPORT_GROUP),
                     ],
                 ]
             )
@@ -160,3 +160,4 @@ async def welcome(client, message: Message):
                 await message.stop_propagation()
         except Exception as ex:
             print(ex)
+
