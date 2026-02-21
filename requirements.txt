@@ -1,6 +1,4 @@
-httpx==0.27.2
 aiofiles
-apscheduler
 aiohttp
 asyncio
 beautifulsoup4
@@ -9,12 +7,14 @@ ffmpeg-python
 gitpython
 hachoir
 heroku3
+httpx[http2]==0.28.1
 motor
-pillow==9.5.0
+numpy
+pillow
 psutil
 py-tgcalls==0.9.7
 pykeyboard
-https://github.com/KurimuzonAkuma/pyrogram/archive/v2.1.24.zip
+pyrofork
 python-dotenv
 pyyaml
 requests
@@ -23,5 +23,8 @@ spotipy
 tgcrypto
 unidecode
 yt-dlp
+git+https://github.com/yt-dlp/yt-dlp
 youtube-search
 youtube-search-python
+wget
+py_yt_search
