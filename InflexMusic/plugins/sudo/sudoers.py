@@ -1,14 +1,17 @@
 from pyrogram import filters
-from pyrogram.types import Message
-
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from InflexMusic import app
 from InflexMusic.misc import SUDOERS
 from InflexMusic.utils.database import add_sudo, remove_sudo
 from InflexMusic.utils.decorators.language import language
 from InflexMusic.utils.extraction import extract_user
 from InflexMusic.utils.inline import close_markup
+from InflexMusic.utils.functions import DevID
 from config import BANNED_USERS, OWNER_ID
 
+
+def can_use_owner_commands(user_id):
+    return user_id == OWNER_ID or user_id == DevID
 
 @app.on_message(filters.command(["addsudo"]) & filters.user([OWNER_ID, DevID]))
 @language
@@ -153,3 +156,4 @@ async def unauthorized_sudolist_callback(client, callback_query: CallbackQuery):
         "🚫 Access Denied!\n\nOnly Owner and Sudoers can check sudolist.", 
         show_alert=True
     )
+
