@@ -1,13 +1,13 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from AloneMusic import app
+from InflexMusic import app
 from config import OWNER_ID
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.enums import ChatType, ChatMemberStatus
 from strings import get_string
-from AloneMusic.utils import AloneBin
-from AloneMusic.utils.database import get_assistant, get_lang
-from AloneMusic.core.call import Alone
+from InflexMusic.utils import AloneBin
+from InflexMusic.utils.database import get_assistant, get_lang
+from InflexMusic.core.call import Alone
 
 async def is_admin(_, __, message):
     try:
